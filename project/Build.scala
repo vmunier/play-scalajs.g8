@@ -25,6 +25,7 @@ object ApplicationBuild extends Build {
     play.Project.playScalaSettings ++ Seq(
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
+      playExternalAssets ++= Seq(((crossTarget in (scalajs, packageJS)).value, (base: File) => base ** "*.js", "public/scalajs")),
       sharedScalaSetting,
       libraryDependencies ++= Seq()
     )
