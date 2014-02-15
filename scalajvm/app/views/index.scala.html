@@ -1,7 +1,9 @@
 @(message: String)
 
-@main("Welcome to Play") {
-
-    @play20.welcome(message)
-
+@main("Play with Scala.js") {
+<h2>Play and Scala.js share a same message</h2>
+<ul>
+  <li>Play shouts out: <em>@message</em></li>
+  <li>Scala.js shouts out: <em id="scalajsShoutOut"></em></li>
+</ul>
 }

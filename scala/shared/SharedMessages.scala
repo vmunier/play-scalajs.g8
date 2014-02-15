@@ -1,5 +1,5 @@
 package shared
 
-object Greetings {
+object SharedMessages {
   def itWorks = "It works!"
 }

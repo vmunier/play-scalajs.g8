@@ -2,13 +2,11 @@ package example
 
 import scala.scalajs.js
 import js.Dynamic.{ global => g }
-import shared.Greetings
+import shared.SharedMessages
 
 object ScalaJSExample {
   def main(): Unit = {
-    val paragraph = g.document.createElement("p")
-    paragraph.innerHTML = "<strong>" + Greetings.itWorks + "</strong>"
-    g.document.getElementById("playground").appendChild(paragraph)
+    g.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
   }
 
   /** Computes the square of an integer.
