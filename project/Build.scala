@@ -38,6 +38,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       dist <<= dist dependsOn Def.task {
         copy(Seq( (optimizeJS in (scalajs, Compile)).value ), scalajsOutputDir.value)
       },
+      watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
       sharedScalaSetting,
       libraryDependencies ++= Seq()
     )
