@@ -29,6 +29,9 @@ object ApplicationBuild extends Build with UniversalKeys {
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
+      compile in Compile <<= (compile in Compile) dependsOn Def.task {
+        copy((packageJS in (scalajs, Compile)).value, scalajsOutputDir.value)
+      },
       resourceGenerators in Compile <+= Def.task {
         copy((packageJS in (scalajs, Compile)).value, scalajsOutputDir.value)
       },
