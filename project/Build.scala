@@ -54,7 +54,7 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   lazy val scalajsSettings =
     scalaJSSettings ++ Seq(
-      name := "example",
+      name := "scalajs-example",
       version := "0.1.0-SNAPSHOT",
       // Specify additional .js file to be passed to package-js and optimize-js
       unmanagedSources in (Compile, ScalaJSKeys.packageJS) += baseDirectory.value / "js" / "startup.js",
