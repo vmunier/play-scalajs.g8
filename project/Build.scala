@@ -61,7 +61,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       sharedScalaSetting,
       libraryDependencies ++= Seq(
         "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test",
-        "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.1-SNAPSHOT"
+        "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3-SNAPSHOT"
       )
     )
 
