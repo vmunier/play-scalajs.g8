@@ -29,28 +29,18 @@ object ApplicationBuild extends Build with UniversalKeys {
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
-      compile in Compile <<= (compile in Compile) dependsOn Def.task {
-        copy((packageJS in (scalajs, Compile)).value, scalajsOutputDir.value)
-      },
-      resourceGenerators in Compile <+= Def.task {
-        copy((packageJS in (scalajs, Compile)).value, scalajsOutputDir.value)
-      },
-      dist <<= dist dependsOn Def.task {
-        copy(Seq( (optimizeJS in (scalajs, Compile)).value ), scalajsOutputDir.value)
-      },
+      compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),
+      dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
       sharedScalaSetting,
       libraryDependencies ++= Seq()
+    ) ++ (
+      // ask scalajs project to put its outputs in scalajsOutputDir
+      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, optimizeJS) map {
+        packageJSKey =>
+          crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
+      }
     )
-
-  def copy(scalajsFiles: Seq[File], outputDir: File): Seq[File] = {
-    for (inFile <- scalajsFiles) yield {
-      val outFile = outputDir / inFile.name
-      IO.copyFile(inFile, outFile)
-      outFile
-    }
-    Seq[File]()
-  }
 
   lazy val scalajsSettings =
     scalaJSSettings ++ Seq(
