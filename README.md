@@ -1,4 +1,3 @@
-
 # Play Framework with Scala.js
 
 This is a simple example application showing how you can integrate a Play project with a Scala.js project.
@@ -24,5 +23,5 @@ $ open http://localhost:9000
 * Customize the Scala.js output directory by updating the `scalajsOutputDir` setting in project/Build.scala
 
 ## Possible Improvements
-* `packageJS` should be triggered on Browser's Refresh when using the Play `run` command.
+* `packageJS` should be triggered on Browser's Refresh when using the Play `run` command.<br>
 For the moment, use `~run` in place of `run`.
