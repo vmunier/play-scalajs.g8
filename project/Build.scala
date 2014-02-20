@@ -30,6 +30,10 @@ object ApplicationBuild extends Build with UniversalKeys {
       version              := "0.1.0-SNAPSHOT",
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
       compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),
+      resourceGenerators in Compile <+= Def.task {
+        val _ = (packageJS in (scalajs, Compile)).value
+        Seq[File]()
+      },
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
       sharedScalaSetting,
