@@ -29,14 +29,14 @@ object ApplicationBuild extends Build with UniversalKeys {
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
-      compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),
+      compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
       sharedScalaSetting,
       libraryDependencies ++= Seq()
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, optimizeJS) map {
+      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
         packageJSKey =>
           crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
@@ -46,8 +46,6 @@ object ApplicationBuild extends Build with UniversalKeys {
     scalaJSSettings ++ Seq(
       name := "scalajs-example",
       version := "0.1.0-SNAPSHOT",
-      // Specify additional .js file to be passed to package-js and optimize-js
-      unmanagedSources in (Compile, ScalaJSKeys.packageJS) += baseDirectory.value / "js" / "startup.js",
       sharedScalaSetting,
       libraryDependencies ++= Seq(
         "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test",
