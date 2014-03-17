@@ -17,7 +17,7 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val scalajvm = play.Project(
     name = "scalajvm",
     path = file("scalajvm")
-  ) settings (scalajvmSettings: _*)
+  ) settings (scalajvmSettings: _*) aggregate (scalajs)
 
   lazy val scalajs = Project(
     id   = "scalajs",
@@ -31,7 +31,6 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
-      watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
       sharedScalaSetting,
       libraryDependencies ++= Seq()
     ) ++ (

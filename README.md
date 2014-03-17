@@ -11,17 +11,13 @@ The application contains three directories:
 ```shell
 $ sbt
 > project scalajvm
-> ~run
+> run
 $ open http://localhost:9000
 ```
 
 ## Notes
-* `preoptimizeJS` is triggered when compiling (works with `compile`, `~compile`, `~run`)
+* `preoptimizeJS` is triggered when compiling (works with `compile`, `~compile`, `run`, `~run`)
 * `optimizeJS` is triggered when calling Play `dist`
 * The ScalaJS output goes to scalajvm/public/javascripts/scalajs
 * scalajvm/public/javascripts/scalajs is present in .gitignore
 * Customize the Scala.js output directory by updating the `scalajsOutputDir` setting in project/Build.scala
-
-## Possible Improvements
-* `preoptimizeJS` should be triggered on Browser's Refresh when using the Play `run` command.<br>
-For the moment, use `~run` in place of `run`.
