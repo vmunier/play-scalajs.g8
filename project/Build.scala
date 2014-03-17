@@ -28,7 +28,7 @@ object ApplicationBuild extends Build with UniversalKeys {
     play.Project.playScalaSettings ++ Seq(
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
-      scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
+      scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
       sharedScalaSetting,
