@@ -9,10 +9,7 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   val scalajsOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
-  lazy val root = Project(
-    id   = "root",
-    base = file(".")
-  ) aggregate (scalajvm, scalajs)
+  override def rootProject = Some(scalajvm)
 
   lazy val scalajvm = play.Project(
     name = "scalajvm",

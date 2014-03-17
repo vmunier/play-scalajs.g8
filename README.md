@@ -10,7 +10,6 @@ The application contains three directories:
 ## Run the application
 ```shell
 $ sbt
-> project scalajvm
 > run
 $ open http://localhost:9000
 ```
