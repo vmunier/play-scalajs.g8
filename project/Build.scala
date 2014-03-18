@@ -4,6 +4,7 @@ import play.Keys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 import com.typesafe.sbt.packager.universal.UniversalKeys
+import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 
 object ApplicationBuild extends Build with UniversalKeys {
 
@@ -29,7 +30,8 @@ object ApplicationBuild extends Build with UniversalKeys {
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
       sharedScalaSetting,
-      libraryDependencies ++= Seq()
+      libraryDependencies ++= Seq(),
+      EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
       Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
