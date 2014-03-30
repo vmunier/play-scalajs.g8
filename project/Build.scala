@@ -51,5 +51,5 @@ object ApplicationBuild extends Build with UniversalKeys {
       )
     )
 
-  lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
+  lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / "scala").getCanonicalPath)
 }
