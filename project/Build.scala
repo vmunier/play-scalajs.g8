@@ -22,6 +22,11 @@ object ApplicationBuild extends Build with UniversalKeys {
     base = file("scalajs")
   ) settings (scalajsSettings: _*)
 
+  lazy val sharedScala = Project(
+    id = "sharedScala",
+    base = file("scala")
+  ) settings(sharedScalaSettings: _*)
+
   lazy val scalajvmSettings =
     play.Project.playScalaSettings ++ Seq(
       name                 := "play-example",
@@ -29,14 +34,13 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
-      sharedScalaSetting,
+      addSrcSetting,
       libraryDependencies ++= Seq(),
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
-        packageJSKey =>
-          crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
+      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map { packageJSKey =>
+        crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
     )
 
@@ -44,12 +48,19 @@ object ApplicationBuild extends Build with UniversalKeys {
     scalaJSSettings ++ Seq(
       name := "scalajs-example",
       version := "0.1.0-SNAPSHOT",
-      sharedScalaSetting,
       libraryDependencies ++= Seq(
         "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test",
         "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3-SNAPSHOT"
-      )
+      ),
+      addSrcSetting
     )
 
-  lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / "scala").getCanonicalPath)
+  lazy val sharedScalaSettings =
+    Seq(
+      name := "shared-scala-example",
+      scalaSource in Compile := baseDirectory.value,
+      EclipseKeys.skipProject := true
+    )
+
+  lazy val addSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / "scala").getCanonicalPath)
 }

@@ -23,11 +23,9 @@ $ open http://localhost:9000
 ### Eclipse
 
 1. `$ sbt eclipse`
-2. Inside Eclipse, import the application into your Workspace with `File/Import/General/Existing project...`
+2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder to import the projects
 
 ### IntelliJ
 
-The sbt `eclipse` command is used because it works better than the `gen-idea` command for this particular project.
-
-1. `$ sbt eclipse`
-2. Inside IntelliJ, `File/Import Project...`, choose `Import project from external model` and then select `Eclipse`
+1. `$ sbt idea`
+2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects
