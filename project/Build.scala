@@ -12,6 +12,8 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   override def rootProject = Some(scalajvm)
 
+  val sharedSrcDir = "scala"
+
   lazy val scalajvm = play.Project(
     name = "scalajvm",
     path = file("scalajvm")
@@ -24,7 +26,7 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   lazy val sharedScala = Project(
     id = "sharedScala",
-    base = file("scala")
+    base = file(sharedSrcDir)
   ) settings(sharedScalaSettings: _*)
 
   lazy val scalajvmSettings =
@@ -34,7 +36,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
-      addSrcSetting,
+      addSharedSrcSetting,
       libraryDependencies ++= Seq(),
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
@@ -52,7 +54,7 @@ object ApplicationBuild extends Build with UniversalKeys {
         "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test",
         "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3-SNAPSHOT"
       ),
-      addSrcSetting
+      addSharedSrcSetting
     )
 
   lazy val sharedScalaSettings =
@@ -62,5 +64,5 @@ object ApplicationBuild extends Build with UniversalKeys {
       EclipseKeys.skipProject := true
     )
 
-  lazy val addSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / "scala").getCanonicalPath)
+  lazy val addSharedSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / sharedSrcDir).getCanonicalPath)
 }
