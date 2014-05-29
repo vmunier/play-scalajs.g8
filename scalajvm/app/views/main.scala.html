@@ -11,12 +11,10 @@
   </head>
   <body>
     @content
-    <script src="@routes.Assets.at("javascripts/scalajs-example-preopt.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/scalajs-example-fastopt.js")" type="text/javascript"></script>
     <!-- for production (play dist), use the optimized version instead -->
     <!-- <script src="@routes.Assets.at("javascripts/scalajs-example-opt.js")" type="text/javascript"></script> -->
 
-    <script type="text/javascript">
-      ScalaJSExample().main();
-    </script>
+    <script src="@routes.Assets.at("javascripts/scalajs-example-launcher.js")" type="text/javascript"></script>
   </body>
 </html>
