@@ -53,7 +53,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       persistLauncher := true,
       persistLauncher in Test := false,
       libraryDependencies ++= Seq(
-        "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.5",
+        "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6",
         "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
       ),
       addSharedSrcSetting
