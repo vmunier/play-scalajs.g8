@@ -1,6 +1,5 @@
 import sbt._
 import Keys._
-import play.Keys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 import com.typesafe.sbt.packager.universal.UniversalKeys
@@ -14,10 +13,10 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   val sharedSrcDir = "scala"
 
-  lazy val scalajvm = play.Project(
-    name = "scalajvm",
-    path = file("scalajvm")
-  ) settings (scalajvmSettings: _*) aggregate (scalajs)
+  lazy val scalajvm = Project(
+    id = "scalajvm",
+    base = file("scalajvm")
+  ) enablePlugins (play.PlayScala) settings (scalajvmSettings: _*) aggregate (scalajs)
 
   lazy val scalajs = Project(
     id   = "scalajs",
@@ -27,17 +26,18 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val sharedScala = Project(
     id = "sharedScala",
     base = file(sharedSrcDir)
-  ) settings(sharedScalaSettings: _*)
+  ) settings (sharedScalaSettings: _*)
 
   lazy val scalajvmSettings =
-    play.Project.playScalaSettings ++ Seq(
-      name                 := "play-example",
-      version              := "0.1.0-SNAPSHOT",
-      scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
+    Seq(
+      name := "play-example",
+      version := Versions.app,
+      scalaVersion := Versions.scala,
+      scalajsOutputDir := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       addSharedSrcSetting,
-      libraryDependencies ++= Seq(),
+      libraryDependencies ++= Dependencies.scalajvm,
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
@@ -49,13 +49,11 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val scalajsSettings =
     scalaJSSettings ++ Seq(
       name := "scalajs-example",
-      version := "0.1.0-SNAPSHOT",
+      version := Versions.app,
+      scalaVersion := Versions.scala,
       persistLauncher := true,
       persistLauncher in Test := false,
-      libraryDependencies ++= Seq(
-        "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6",
-        "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
-      ),
+      libraryDependencies ++= Dependencies.scalajs,
       addSharedSrcSetting
     )
 
@@ -67,4 +65,19 @@ object ApplicationBuild extends Build with UniversalKeys {
     )
 
   lazy val addSharedSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / sharedSrcDir).getCanonicalPath)
+}
+
+object Dependencies {
+  val scalajvm = Seq()
+
+  val scalajs = Seq(
+    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom,
+    "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
+  )
+}
+
+object Versions {
+  val app = "0.1.0-SNAPSHOT"
+  val scala = "2.11.1"
+  val scalajsDom = "0.6"
 }
