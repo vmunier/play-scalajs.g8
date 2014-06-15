@@ -34,14 +34,14 @@ object ApplicationBuild extends Build with UniversalKeys {
       name                 := "play-example",
       version              := "0.1.0-SNAPSHOT",
       scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
-      compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
-      dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
+      compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
+      dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       addSharedSrcSetting,
       libraryDependencies ++= Seq(),
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map { packageJSKey =>
+      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
         crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
     )
@@ -50,9 +50,11 @@ object ApplicationBuild extends Build with UniversalKeys {
     scalaJSSettings ++ Seq(
       name := "scalajs-example",
       version := "0.1.0-SNAPSHOT",
+      persistLauncher := true,
+      persistLauncher in Test := false,
       libraryDependencies ++= Seq(
-        "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test",
-        "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3-SNAPSHOT"
+        "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6",
+        "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
       ),
       addSharedSrcSetting
     )
