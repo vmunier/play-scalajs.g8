@@ -72,6 +72,7 @@ object Dependencies {
   val shared = Seq()
 
   val scalajvm = Seq(
+    "org.webjars" % "jquery" % "1.9.0"
   ) ++ shared
 
   val scalajs = Seq(
