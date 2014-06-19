@@ -61,19 +61,23 @@ object ApplicationBuild extends Build with UniversalKeys {
     Seq(
       name := "shared-scala-example",
       scalaSource in Compile := baseDirectory.value,
-      EclipseKeys.skipProject := true
+      EclipseKeys.skipProject := true,
+      libraryDependencies ++= Dependencies.shared
     )
 
   lazy val addSharedSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / sharedSrcDir).getCanonicalPath)
 }
 
 object Dependencies {
-  val scalajvm = Seq()
+  val shared = Seq()
+
+  val scalajvm = Seq(
+  ) ++ shared
 
   val scalajs = Seq(
     "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom,
     "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
-  )
+  ) ++ shared
 }
 
 object Versions {
