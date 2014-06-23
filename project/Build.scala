@@ -36,7 +36,6 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalajsOutputDir := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
-      addSharedSrcSetting,
       libraryDependencies ++= Dependencies.scalajvm,
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
@@ -44,7 +43,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
         crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
-    )
+    ) ++ sharedDirectorySettings
 
   lazy val scalajsSettings =
     scalaJSSettings ++ Seq(
@@ -53,9 +52,8 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalaVersion := Versions.scala,
       persistLauncher := true,
       persistLauncher in Test := false,
-      libraryDependencies ++= Dependencies.scalajs,
-      addSharedSrcSetting
-    )
+      libraryDependencies ++= Dependencies.scalajs
+    ) ++ sharedDirectorySettings
 
   lazy val sharedScalaSettings =
     Seq(
@@ -65,7 +63,12 @@ object ApplicationBuild extends Build with UniversalKeys {
       libraryDependencies ++= Dependencies.shared
     )
 
-  lazy val addSharedSrcSetting = unmanagedSourceDirectories in Compile += new File((baseDirectory.value / ".." / sharedSrcDir).getCanonicalPath)
+  lazy val sharedDirectorySettings = Seq(
+    unmanagedSourceDirectories in Compile += new File((file(".") / sharedSrcDir / "src" / "main" / "scala").getCanonicalPath),
+    unmanagedSourceDirectories in Test += new File((file(".") / sharedSrcDir / "src" / "test" / "scala").getCanonicalPath),
+    unmanagedResourceDirectories in Compile += file(".") / sharedSrcDir / "src" / "main" / "resources",
+    unmanagedResourceDirectories in Test += file(".") / sharedSrcDir / "src" / "test" / "resources"
+  )
 }
 
 object Dependencies {
