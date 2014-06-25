@@ -1,5 +1,6 @@
 import sbt._
 import Keys._
+import play.Play._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 import com.typesafe.sbt.packager.universal.UniversalKeys
@@ -37,6 +38,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       libraryDependencies ++= Dependencies.scalajvm,
+      commands += preStartCommand,
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
@@ -69,6 +71,18 @@ object ApplicationBuild extends Build with UniversalKeys {
     unmanagedResourceDirectories in Compile += file(".") / sharedSrcDir / "src" / "main" / "resources",
     unmanagedResourceDirectories in Test += file(".") / sharedSrcDir / "src" / "test" / "resources"
   )
+
+  // Use reflection to rename the 'start' command to 'play-start'
+  Option(play.Play.playStartCommand.getClass.getDeclaredField("name")) map { field =>
+    field.setAccessible(true)
+    field.set(playStartCommand, "play-start")
+  }
+
+  // The new 'start' command optimises the JS before calling the Play 'start' renamed 'play-start'
+  val preStartCommand = Command.args("start", "<port>") { (state: State, args: Seq[String]) =>
+    Project.runTask(fullOptJS in (scalajs, Compile), state)
+    state.copy(remainingCommands = ("play-start " + args.mkString(" ")) +: state.remainingCommands)
+  }
 }
 
 object Dependencies {
