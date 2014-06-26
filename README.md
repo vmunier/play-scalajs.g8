@@ -14,10 +14,6 @@ $ sbt
 $ open http://localhost:9000
 ```
 
-## Notes
-* `preoptimizeJS` is triggered when compiling (works with `compile`, `~compile`, `run`, `~run`)
-* `optimizeJS` is triggered when calling Play `dist`
-
 ## IDE integration
 
 ### Eclipse
@@ -29,3 +25,7 @@ $ open http://localhost:9000
 
 1. `$ sbt idea`
 2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects
+
+## Notes
+* `fastOptJS` is triggered when compiling (works with `compile`, `~compile`, `run`, `~run`)
+* `fullOptJS` is triggered when calling Play `start` and `dist` commands
