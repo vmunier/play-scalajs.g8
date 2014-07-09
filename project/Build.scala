@@ -60,7 +60,6 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val sharedScalaSettings =
     Seq(
       name := "shared-scala-example",
-      scalaSource in Compile := baseDirectory.value,
       EclipseKeys.skipProject := true,
       libraryDependencies ++= Dependencies.shared
     )
