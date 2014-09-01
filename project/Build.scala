@@ -54,7 +54,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalaVersion := Versions.scala,
       persistLauncher := true,
       persistLauncher in Test := false,
-      libraryDependencies ++= Dependencies.scalajs
+      libraryDependencies ++= ("org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom) +: Dependencies.scalajs
     ) ++ sharedDirectorySettings
 
   lazy val sharedScalaSettings =
@@ -92,7 +92,6 @@ object Dependencies {
   ) ++ shared
 
   val scalajs = Seq(
-    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom,
     "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
   ) ++ shared
 }
