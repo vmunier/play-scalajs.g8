@@ -28,4 +28,4 @@ $ open http://localhost:9000
 
 ## Notes
 * `fastOptJS` is triggered when compiling (works with `compile`, `~compile`, `run`, `~run`)
-* `fullOptJS` is triggered when calling Play `start` and `dist` commands
+* `fullOptJS` is triggered when calling Play `start`, `stage` or `dist` command
