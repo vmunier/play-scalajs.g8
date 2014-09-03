@@ -37,6 +37,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalajsOutputDir := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
+      stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
       libraryDependencies ++= Dependencies.scalajvm,
       commands += preStartCommand,
       EclipseKeys.skipParents in ThisBuild := false
