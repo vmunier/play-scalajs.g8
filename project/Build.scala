@@ -35,7 +35,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       version := Versions.app,
       scalaVersion := Versions.scala,
       scalajsOutputDir := (classDirectory in Compile).value / "public" / "javascripts",
-      compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
+      compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)) dependsOn copySourceMapsTask,
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
       libraryDependencies ++= Dependencies.scalajvm,
@@ -55,6 +55,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       scalaVersion := Versions.scala,
       persistLauncher := true,
       persistLauncher in Test := false,
+      relativeSourceMaps := true,
       libraryDependencies ++= ("org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom) +: Dependencies.scalajs
     ) ++ sharedDirectorySettings
 
@@ -71,6 +72,14 @@ object ApplicationBuild extends Build with UniversalKeys {
     unmanagedResourceDirectories in Compile += file(".") / sharedSrcDir / "src" / "main" / "resources",
     unmanagedResourceDirectories in Test += file(".") / sharedSrcDir / "src" / "test" / "resources"
   )
+
+  val copySourceMapsTask = Def.task {
+    val scalaFiles = (Seq(sharedScala.base, scalajs.base) ** ("*.scala")).get
+    for (scalaFile <- scalaFiles) {
+      val target = new File((classDirectory in Compile).value, scalaFile.getPath)
+      IO.copyFile(scalaFile, target)
+    }
+  }
 
   // Use reflection to rename the 'start' command to 'play-start'
   Option(play.Play.playStartCommand.getClass.getDeclaredField("name")) map { field =>
