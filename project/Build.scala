@@ -4,6 +4,7 @@ import play.Play._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 import com.typesafe.sbt.packager.universal.UniversalKeys
+import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 
 object ApplicationBuild extends Build with UniversalKeys {
 
@@ -38,6 +39,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
       libraryDependencies ++= Dependencies.scalajvm,
+      EclipseKeys.skipParents in ThisBuild := false,
       commands += preStartCommand
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
