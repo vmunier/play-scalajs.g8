@@ -43,7 +43,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       commands += preStartCommand
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
+      Seq(packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
         crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
     ) ++ sharedDirectorySettings
