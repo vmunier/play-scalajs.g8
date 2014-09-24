@@ -20,7 +20,7 @@ object ApplicationBuild extends Build with UniversalKeys {
   ) enablePlugins (play.PlayScala) settings (scalajvmSettings: _*) aggregate (scalajs)
 
   lazy val scalajs = Project(
-    id   = "scalajs",
+    id = "scalajs",
     base = file("scalajs")
   ) settings (scalajsSettings: _*)
 
@@ -38,7 +38,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)) dependsOn copySourceMapsTask,
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
-      libraryDependencies ++= Dependencies.scalajvm,
+      libraryDependencies ++= Dependencies.scalajvm.value,
       EclipseKeys.skipParents in ThisBuild := false,
       commands += preStartCommand
     ) ++ (
@@ -56,13 +56,13 @@ object ApplicationBuild extends Build with UniversalKeys {
       persistLauncher := true,
       persistLauncher in Test := false,
       relativeSourceMaps := true,
-      libraryDependencies ++= ("org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom) +: Dependencies.scalajs
+      libraryDependencies ++= Dependencies.scalajs.value
     ) ++ sharedDirectorySettings
 
   lazy val sharedScalaSettings =
     Seq(
       name := "shared-scala-example",
-      libraryDependencies ++= Dependencies.shared
+      libraryDependencies ++= Dependencies.shared.value
     )
 
   lazy val sharedDirectorySettings = Seq(
@@ -94,15 +94,16 @@ object ApplicationBuild extends Build with UniversalKeys {
 }
 
 object Dependencies {
-  val shared = Seq()
+  val shared = Def.setting(Seq())
 
-  val scalajvm = Seq(
+  val scalajvm = Def.setting(shared.value ++ Seq(
     "org.webjars" % "jquery" % "1.9.0"
-  ) ++ shared
+  ))
 
-  val scalajs = Seq(
+  val scalajs = Def.setting(shared.value ++ Seq(
+    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom,
     "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
-  ) ++ shared
+  ))
 }
 
 object Versions {
