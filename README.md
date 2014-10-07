@@ -24,7 +24,7 @@ $ open http://localhost:9000
 ### IntelliJ
 
 1. `$ sbt idea`
-2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects
+2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects (do *not* use `Import Project...` or `Import Module...`)
 
 ## Notes
 * `fastOptJS` is triggered when compiling (works with `compile`, `~compile`, `run`, `~run`)
