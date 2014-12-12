@@ -89,8 +89,7 @@ object Dependencies {
   ))
 
   val scalajs = Def.setting(shared.value ++ Seq(
-    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom,
-    "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion % "test"
+    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom
   ))
 }
 
