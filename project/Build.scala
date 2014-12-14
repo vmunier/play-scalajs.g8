@@ -8,11 +8,11 @@ import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 
 object ApplicationBuild extends Build with UniversalKeys {
 
+  val SharedSrcDir = "scala"
+
   val scalajsOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
   override def rootProject = Some(scalajvm)
-
-  val sharedSrcDir = "scala"
 
   lazy val scalajvm = Project(
     id = "scalajvm",
@@ -26,7 +26,7 @@ object ApplicationBuild extends Build with UniversalKeys {
 
   lazy val sharedScala = Project(
     id = "sharedScala",
-    base = file(sharedSrcDir)
+    base = file(SharedSrcDir)
   ) settings (sharedScalaSettings: _*)
 
   lazy val scalajvmSettings =
@@ -66,10 +66,10 @@ object ApplicationBuild extends Build with UniversalKeys {
     )
 
   lazy val sharedDirectorySettings = Seq(
-    unmanagedSourceDirectories in Compile += new File((file(".") / sharedSrcDir / "src" / "main" / "scala").getCanonicalPath),
-    unmanagedSourceDirectories in Test += new File((file(".") / sharedSrcDir / "src" / "test" / "scala").getCanonicalPath),
-    unmanagedResourceDirectories in Compile += file(".") / sharedSrcDir / "src" / "main" / "resources",
-    unmanagedResourceDirectories in Test += file(".") / sharedSrcDir / "src" / "test" / "resources"
+    unmanagedSourceDirectories in Compile += new File((file(".") / SharedSrcDir / "src" / "main" / "scala").getCanonicalPath),
+    unmanagedSourceDirectories in Test += new File((file(".") / SharedSrcDir / "src" / "test" / "scala").getCanonicalPath),
+    unmanagedResourceDirectories in Compile += file(".") / SharedSrcDir / "src" / "main" / "resources",
+    unmanagedResourceDirectories in Test += file(".") / SharedSrcDir / "src" / "test" / "resources"
   )
 
   val copySourceMapsTask = Def.task {
