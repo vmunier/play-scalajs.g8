@@ -1,5 +1,7 @@
 # Play Framework with Scala.js
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vmunier/play-with-scalajs-example?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is a simple example application showing how you can integrate a Play project with a Scala.js project.
 
 The application contains three directories:
