@@ -1,6 +1,8 @@
 import sbt._
 import Keys._
 import play.Play._
+import play.Play.autoImport._
+import PlayKeys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 import com.typesafe.sbt.packager.universal.UniversalKeys
