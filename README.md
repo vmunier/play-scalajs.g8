@@ -40,3 +40,7 @@ $ open http://localhost:9000
 
 1. `$ sbt gen-idea`
 2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects (do *not* use `Import Project...` or `Import Module...`)
+3. Link modules to shared sources
+  1. In `File/Project Structure…` choose `Project Settings/Modules`
+  2. Choose `scalajvm` -> `Dependencies` tab -> `+` (at bottom) -> `Module Dependency...` -> `sharedScala`
+  3. Repeat, choosing `scalajs` and again adding `sharedScala` as a module dependency
