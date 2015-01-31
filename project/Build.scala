@@ -1,8 +1,9 @@
 import sbt._
 import Keys._
+import play.PlayScala
 import play.Play._
-import scala.scalajs.sbtplugin.ScalaJSPlugin._
-import ScalaJSKeys._
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import com.typesafe.sbt.packager.universal.UniversalKeys
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 
@@ -17,12 +18,12 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val scalajvm = Project(
     id = "scalajvm",
     base = file("scalajvm")
-  ) enablePlugins (play.PlayScala) settings (scalajvmSettings: _*) aggregate (scalajs)
+  ) enablePlugins (PlayScala) settings (scalajvmSettings: _*) aggregate (scalajs)
 
   lazy val scalajs = Project(
     id = "scalajs",
     base = file("scalajs")
-  ) settings (scalajsSettings: _*)
+  ) enablePlugins(ScalaJSPlugin) settings (scalajsSettings: _*)
 
   lazy val sharedScala = Project(
     id = "sharedScala",
@@ -42,13 +43,13 @@ object ApplicationBuild extends Build with UniversalKeys {
       EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
+      Seq(packageScalaJSLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
         crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
       }
     ) ++ sharedDirectorySettings
 
   lazy val scalajsSettings =
-    scalaJSSettings ++ Seq(
+    Seq(
       name := "scalajs-example",
       version := Versions.app,
       scalaVersion := Versions.scala,
@@ -89,14 +90,14 @@ object Dependencies {
   ))
 
   val scalajs = Def.setting(shared.value ++ Seq(
-    "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % Versions.scalajsDom
+    "org.scala-js" %%% "scalajs-dom" % Versions.scalajsDom
   ))
 }
 
 object Versions {
   val app = "0.1.0-SNAPSHOT"
-  val scala = "2.11.2"
-  val scalajsDom = "0.6"
+  val scala = "2.11.5"
+  val scalajsDom = "0.7.0"
   val jquery = "1.11.1"
   val playScalajsSourcemaps = "0.1.0"
 }
