@@ -9,7 +9,6 @@ import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 object ApplicationBuild extends Build with UniversalKeys {
 
   val SharedSrcDir = "scala"
-  val PlayStart = "playStart"
 
   val scalajsOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
@@ -40,8 +39,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
       stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
       libraryDependencies ++= Dependencies.scalajvm.value,
-      EclipseKeys.skipParents in ThisBuild := false,
-      commands ++= Seq(playStartCommand, startCommand)
+      EclipseKeys.skipParents in ThisBuild := false
     ) ++ (
       // ask scalajs project to put its outputs in scalajsOutputDir
       Seq(packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>
@@ -80,13 +78,6 @@ object ApplicationBuild extends Build with UniversalKeys {
       IO.copyFile(scalaFile, target)
     }
   }
-
-  // The new 'start' command optimises the JS before calling 'playStart'
-  val startCommand = Command.args("start", "<port>") { (state: State, args: Seq[String]) =>
-    Project.runTask(fullOptJS in (scalajs, Compile), state)
-    state.copy(remainingCommands = s"$PlayStart ${args.mkString(" ")}" +: state.remainingCommands)
-  }
-  val playStartCommand = Command.make(PlayStart)(play.Play.playStartCommand.parser)
 }
 
 object Dependencies {
