@@ -97,7 +97,7 @@ object Dependencies {
 object Versions {
   val app = "0.1.0-SNAPSHOT"
   val scala = "2.11.5"
-  val scalajsDom = "0.7.0"
+  val scalajsDom = "0.8.0"
   val jquery = "1.11.1"
   val playScalajsSourcemaps = "0.1.0"
 }
