@@ -21,6 +21,7 @@ lazy val js = project.settings(
   persistLauncher := true,
   persistLauncher in Test := false,
   sourceMapsDirectories += sharedJs.base / "..",
+  unmanagedSourceDirectories in Compile := Seq((scalaSource in Compile).value),
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.0").
   enablePlugins(ScalaJSPlugin, ScalaJSPlay).
   dependsOn(sharedJs)
