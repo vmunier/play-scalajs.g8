@@ -5,9 +5,9 @@
 This is a simple example application showing how you can integrate a Play project with a Scala.js project.
 
 The application contains three directories:
-* `scalajvm` Play application (server side)
-* `scalajs` Scala.js application (client side)
-* `scala` scala code that you want to share between scalajs and scalajvm (both client and server sides)
+* `jvm` Play application (server side)
+* `js` Scala.js application (client side)
+* `shared` scala code that you want to share between js and jvm (both client and server sides)
 
 ## Run the application
 ```shell
