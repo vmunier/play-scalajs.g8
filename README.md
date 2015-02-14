@@ -18,16 +18,17 @@ $ open http://localhost:9000
 
 ## Features
 
+The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-scalajs) sbt plugin and the [play-scalajs-scripts](https://github.com/vmunier/play-scalajs-scripts) library.
+
 - Run your application like a regular Play app
   - `compile` simply triggers the Scala.js compilation
-  - `run` triggers the Scala.js compilation on page refresh
+  - `run` triggers the Scala.js fastOptJS command on page refresh
   - `~compile`, `~run`, continuous compilation is also available
   - `start`, `stage` and `dist` generate the optimised javascript
   - the optimised javascript file is [selected](https://github.com/vmunier/play-with-scalajs-example/blob/9624ad45a2350b966bf7b6fab88c6611f3085948/scalajvm/app/views/main.scala.html#L16-L20) when the application runs in prod mode (`start`, `stage`, `dist`)
 - Source maps
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown
-  - Source maps is _disabled in production_ to prevent your users from seeing the source files. But it can easily be [enabled](https://github.com/vmunier/play-with-scalajs-example/blob/9624ad45a2350b966bf7b6fab88c6611f3085948/scalajvm/app/controllers/SourceMaps.scala#L14-L15) in production too if needed
-  - [Two routes](https://github.com/vmunier/play-with-scalajs-example/blob/9624ad45a2350b966bf7b6fab88c6611f3085948/scalajvm/conf/routes#L8-L10) and a [SourceMaps](https://github.com/vmunier/play-with-scalajs-example/blob/9624ad45a2350b966bf7b6fab88c6611f3085948/scalajvm/app/controllers/SourceMaps.scala) controller handle sending the Scala files to the browser. It's the Scala.js plugin that handles generating Source Maps
+  - Source Maps is _disabled in production_ by default to prevent your users from seeing the source files. But it can easily be enabled in production too by setting `emitSourceMaps in fullOptJS := true` in the Scala.js projects.
 
 ## IDE integration
 
@@ -38,5 +39,4 @@ $ open http://localhost:9000
 
 ### IntelliJ
 
-1. `$ sbt gen-idea`
-2. Inside IntelliJ, `File/Open...`, choose the root folder to import all the projects (do *not* use `Import Project...` or `Import Module...`)
+IntelliJ integration does not work well with cross projects for now. The IDEA team is working on a fix.
