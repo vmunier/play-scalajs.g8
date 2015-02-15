@@ -1,11 +1,11 @@
 import sbt.Project.projectToRef
 
-lazy val jsProjects = Seq(js)
+lazy val clients = Seq(exampleClient)
 lazy val scalaV = "2.11.5"
 
-lazy val jvm = project.settings(
+lazy val exampleServer = (project in file("example-server")).settings(
   scalaVersion := scalaV,
-  scalaJSProjects := jsProjects,
+  scalaJSProjects := clients,
   pipelineStages := Seq(scalaJSProd, gzip),
   libraryDependencies ++= Seq(
     "com.vmunier" %% "play-scalajs-scripts" % "0.1.0",
@@ -13,26 +13,26 @@ lazy val jvm = project.settings(
   ),
   EclipseKeys.skipParents in ThisBuild := false).
   enablePlugins(PlayScala).
-  aggregate(jsProjects.map(projectToRef): _*).
-  dependsOn(sharedJvm)
+  aggregate(clients.map(projectToRef): _*).
+  dependsOn(exampleSharedJvm)
 
-lazy val js = project.settings(
+lazy val exampleClient = (project in file("example-client")).settings(
   scalaVersion := scalaV,
   persistLauncher := true,
   persistLauncher in Test := false,
-  sourceMapsDirectories += sharedJs.base / "..",
+  sourceMapsDirectories += exampleSharedJs.base / "..",
   unmanagedSourceDirectories in Compile := Seq((scalaSource in Compile).value),
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.0").
   enablePlugins(ScalaJSPlugin, ScalaJSPlay).
-  dependsOn(sharedJs)
+  dependsOn(exampleSharedJs)
 
-lazy val shared = crossProject.crossType(CrossType.Pure).
+lazy val exampleShared = (crossProject.crossType(CrossType.Pure) in file("example-shared")).
   settings(scalaVersion := scalaV).
   jsConfigure(_ enablePlugins ScalaJSPlay).
   jsSettings(sourceMapsBase := baseDirectory.value / "..")
 
-lazy val sharedJvm = shared.jvm
-lazy val sharedJs = shared.js
+lazy val exampleSharedJvm = exampleShared.jvm
+lazy val exampleSharedJs = exampleShared.js
 
 // loads the jvm project at sbt startup
-onLoad in Global := (Command.process("project jvm", _: State)) compose (onLoad in Global).value
+onLoad in Global := (Command.process("project exampleServer", _: State)) compose (onLoad in Global).value
