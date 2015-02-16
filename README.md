@@ -39,4 +39,5 @@ The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-
 
 ### IntelliJ
 
-IntelliJ integration does not work well with cross projects for now. The IDEA team is working on a fix.
+In IntelliJ, `File/Import Project...`, choose the root folder, `Import project from external model/SBT/Finish`.
+Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known issues with prior versions of the plugin.
