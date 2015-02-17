@@ -11,6 +11,8 @@ lazy val exampleServer = (project in file("example-server")).settings(
     "com.vmunier" %% "play-scalajs-scripts" % "0.1.0",
     "org.webjars" % "jquery" % "1.11.1"
   ),
+  herokuAppName in Compile := "your-heroku-app-name",
+  herokuSkipSubProjects in Compile := false,
   EclipseKeys.skipParents in ThisBuild := false).
   enablePlugins(PlayScala).
   aggregate(clients.map(projectToRef): _*).
