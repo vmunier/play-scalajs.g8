@@ -41,3 +41,9 @@ The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-
 
 In IntelliJ, `File/Import Project...`, choose the root folder, `Import project from external model/SBT/Finish`.
 Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known issues with prior versions of the plugin.
+
+### Deploying on Heroku
+
+1. `$ heroku create -n`
+2. Set the `herokuAppName` in `build.sbt`
+3. `$ sbt stage deployHeroku`
