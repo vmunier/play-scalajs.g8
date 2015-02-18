@@ -2,6 +2,5 @@
   "name": "Play Framework with Scala.js",
   "description": "An example application showing how you can integrate a Play project with a Scala.js project",
   "website": "https://github.com/vmunier/play-with-scalajs-example",
-  "addons": ["heroku-postgresql:hobby-dev", "papertrail"],
   "success_url": "/"
 }
