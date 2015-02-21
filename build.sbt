@@ -22,7 +22,9 @@ lazy val exampleClient = (project in file("example-client")).settings(
   persistLauncher in Test := false,
   sourceMapsDirectories += exampleSharedJs.base / "..",
   unmanagedSourceDirectories in Compile := Seq((scalaSource in Compile).value),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.0").
+  libraryDependencies ++= Seq(
+    "org.scala-js" %%% "scalajs-dom" % "0.8.0"
+  )).
   enablePlugins(ScalaJSPlugin, ScalaJSPlay).
   dependsOn(exampleSharedJs)
 
