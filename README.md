@@ -44,4 +44,10 @@ Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known is
 
 ## Deployment
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+### Heroku
+
+1. `$ heroku create -n` creates an app and prints its name.
+2. Set the `herokuAppName` in `build.sbt` with the name of the application you created.
+3. `$ sbt stage deployHeroku`
+
+This example uses the [sbt-heroku](https://github.com/heroku/sbt-heroku) plugin to deploy to Heroku.
