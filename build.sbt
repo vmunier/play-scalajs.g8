@@ -13,9 +13,7 @@ lazy val exampleServer = (project in file("example-server")).settings(
   ),
   // Heroku specific
   herokuAppName in Compile := "your-heroku-app-name",
-  herokuSkipSubProjects in Compile := false,
-  // for Eclipse users
-  EclipseKeys.skipParents in ThisBuild := false
+  herokuSkipSubProjects in Compile := false
 ).enablePlugins(PlayScala).
   aggregate(clients.map(projectToRef): _*).
   dependsOn(exampleSharedJvm)
@@ -42,3 +40,6 @@ lazy val exampleSharedJs = exampleShared.js
 
 // loads the Play project at sbt startup
 onLoad in Global := (Command.process("project exampleServer", _: State)) compose (onLoad in Global).value
+
+// for Eclipse users
+EclipseKeys.skipParents in ThisBuild := false
