@@ -17,3 +17,5 @@ addSbtPlugin("com.vmunier" % "sbt-play-scalajs" % "0.2.4")
 addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0")
 
 addSbtPlugin("com.heroku" % "sbt-heroku" % "0.3.4")
+
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
