@@ -8,7 +8,7 @@ lazy val exampleServer = (project in file("example-server")).settings(
   scalaJSProjects := clients,
   pipelineStages := Seq(scalaJSProd, gzip),
   libraryDependencies ++= Seq(
-    "com.vmunier" %% "play-scalajs-scripts" % "0.2.1",
+    "com.vmunier" %% "play-scalajs-scripts" % "0.2.2",
     "org.webjars" % "jquery" % "1.11.1"
   ),
   // Heroku specific
