@@ -1,7 +1,7 @@
 import sbt.Project.projectToRef
 
 lazy val clients = Seq(exampleClient)
-lazy val scalaV = "2.11.5"
+lazy val scalaV = "2.11.6"
 
 lazy val exampleServer = (project in file("example-server")).settings(
   scalaVersion := scalaV,
@@ -9,7 +9,8 @@ lazy val exampleServer = (project in file("example-server")).settings(
   pipelineStages := Seq(scalaJSProd, gzip),
   libraryDependencies ++= Seq(
     "com.vmunier" %% "play-scalajs-scripts" % "0.2.2",
-    "org.webjars" % "jquery" % "1.11.1"
+    "org.webjars" % "jquery" % "1.11.1",
+    specs2 % Test
   ),
   // Heroku specific
   herokuAppName in Compile := "your-heroku-app-name",
