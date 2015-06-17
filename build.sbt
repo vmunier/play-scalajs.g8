@@ -9,7 +9,7 @@ lazy val exampleServer = (project in file("example-server")).settings(
   pipelineStages := Seq(scalaJSProd, gzip),
   resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
   libraryDependencies ++= Seq(
-    "com.vmunier" %% "play-scalajs-scripts" % "0.2.2",
+    "com.vmunier" %% "play-scalajs-scripts" % "0.3.0",
     "org.webjars" % "jquery" % "1.11.1",
     specs2 % Test
   ),
