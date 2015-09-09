@@ -24,7 +24,6 @@ lazy val exampleClient = (project in file("example-client")).settings(
   scalaVersion := scalaV,
   persistLauncher := true,
   persistLauncher in Test := false,
-  sourceMapsDirectories += exampleSharedJs.base / "..",
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.8.0"
   )
@@ -33,8 +32,7 @@ lazy val exampleClient = (project in file("example-client")).settings(
 
 lazy val exampleShared = (crossProject.crossType(CrossType.Pure) in file("example-shared")).
   settings(scalaVersion := scalaV).
-  jsConfigure(_ enablePlugins ScalaJSPlay).
-  jsSettings(sourceMapsBase := baseDirectory.value / "..")
+  jsConfigure(_ enablePlugins ScalaJSPlay)
 
 lazy val exampleSharedJvm = exampleShared.jvm
 lazy val exampleSharedJs = exampleShared.js
