@@ -25,7 +25,7 @@ The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-
   - `run` triggers the Scala.js fastOptJS command on page refresh
   - `~compile`, `~run`, continuous compilation is also available
   - `start`, `stage` and `dist` generate the optimised javascript
-  - [`playscalajs.html.scripts`](https://github.com/vmunier/play-with-scalajs-example/blob/303bfdcf3121d0d45e9425945f7480f84a81ccac/example-server/app/views/main.scala.html#L16) selects the optimised javascript file when the application runs in prod mode (`start`, `stage`, `dist`).
+  - [`playscalajs.html.scripts`](https://github.com/vmunier/play-with-scalajs-example/blob/c5fa9ce35954278bea903823a7f0528b1d68b5db/server/app/views/main.scala.html#L14) selects the optimised javascript file when the application runs in prod mode (`start`, `stage`, `dist`).
 - Source maps
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown
   - Source Maps is _disabled in production_ by default to prevent your users from seeing the source files. But it can easily be enabled in production too by setting `emitSourceMaps in fullOptJS := true` in the Scala.js projects.
