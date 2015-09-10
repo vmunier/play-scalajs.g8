@@ -5,9 +5,9 @@
 This is a simple example application showing how you can integrate a Play project with a Scala.js project.
 
 The application contains three directories:
-* `example-server` Play application (server side)
-* `example-client` Scala.js application (client side)
-* `example-shared` Scala code that you want to share between the server and the client
+* `server` Play application (server side)
+* `client` Scala.js application (client side)
+* `shared` Scala code that you want to share between the server and the client
 
 ## Run the application
 ```shell
@@ -35,11 +35,12 @@ The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-
 ### Eclipse
 
 1. `$ sbt eclipse`
-2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the last two checkboxes to only import exampleClient, exampleServer and one exampleShared, click `Finish`. ![Alt text](screenshots/eclipse-play-with-scalajs-example.png?raw=true "eclipse play-with-scalajs-example screenshot")
+2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the second and the last checkboxes to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-with-scalajs-example.png?raw=true "eclipse play-with-scalajs-example screenshot")
 
 ### IntelliJ
 
-In IntelliJ, `File/Import Project...`, choose the root folder, `Import project from external model/SBT/Finish`.
+In IntelliJ, open Project wizard, select `Import Project`, choose the root folder and click `OK`.
+Select `Import project from external model` option, choose `SBT project` and click `Next`. Select additional import options and click `Finish`.
 Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known issues with prior versions of the plugin.
 
 ## Deployment

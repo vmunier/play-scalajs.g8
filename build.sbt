@@ -1,9 +1,9 @@
 import sbt.Project.projectToRef
 
-lazy val clients = Seq(exampleClient)
-lazy val scalaV = "2.11.6"
+lazy val clients = Seq(client)
+lazy val scalaV = "2.11.7"
 
-lazy val exampleServer = (project in file("example-server")).settings(
+lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
   scalaJSProjects := clients,
   pipelineStages := Seq(scalaJSProd, gzip),
@@ -18,9 +18,9 @@ lazy val exampleServer = (project in file("example-server")).settings(
   herokuSkipSubProjects in Compile := false
 ).enablePlugins(PlayScala).
   aggregate(clients.map(projectToRef): _*).
-  dependsOn(exampleSharedJvm)
+  dependsOn(sharedJvm)
 
-lazy val exampleClient = (project in file("example-client")).settings(
+lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
   persistLauncher := true,
   persistLauncher in Test := false,
@@ -28,19 +28,19 @@ lazy val exampleClient = (project in file("example-client")).settings(
     "org.scala-js" %%% "scalajs-dom" % "0.8.0"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
-  dependsOn(exampleSharedJs)
+  dependsOn(sharedJs)
 
-lazy val exampleShared = (crossProject.crossType(CrossType.Pure) in file("example-shared")).
+lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
   settings(scalaVersion := scalaV).
   jsConfigure(_ enablePlugins ScalaJSPlay)
 
-lazy val exampleSharedJvm = exampleShared.jvm
-lazy val exampleSharedJs = exampleShared.js
+lazy val sharedJvm = shared.jvm
+lazy val sharedJs = shared.js
 
 // loads the Play project at sbt startup
-onLoad in Global := (Command.process("project exampleServer", _: State)) compose (onLoad in Global).value
+onLoad in Global := (Command.process("project server", _: State)) compose (onLoad in Global).value
 
 // for Eclipse users
 EclipseKeys.skipParents in ThisBuild := false
 // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
-EclipseKeys.preTasks := Seq(compile in (exampleServer, Compile))
+EclipseKeys.preTasks := Seq(compile in (server, Compile))
