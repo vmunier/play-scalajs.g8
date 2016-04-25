@@ -1,7 +1,7 @@
 import sbt.Project.projectToRef
 
 lazy val clients = Seq(client)
-lazy val scalaV = "2.11.7"
+lazy val scalaV = "2.11.8"
 
 lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
@@ -9,7 +9,7 @@ lazy val server = (project in file("server")).settings(
   pipelineStages := Seq(scalaJSProd, gzip),
   resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
   libraryDependencies ++= Seq(
-    "com.vmunier" %% "play-scalajs-scripts" % "0.4.0",
+    "com.vmunier" %% "play-scalajs-scripts" % "0.5.0",
     "org.webjars" % "jquery" % "1.11.1",
     specs2 % Test
   ),
