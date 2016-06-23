@@ -35,7 +35,7 @@ The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-
 
 ### Eclipse
 
-1. `$ sbt eclipse`
+1. `$ sbt sbt "eclipse with-source=true"`
 2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the second and the last checkboxes to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-with-scalajs-example.png?raw=true "eclipse play-with-scalajs-example screenshot")
 
 ### IntelliJ

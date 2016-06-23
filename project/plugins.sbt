@@ -18,4 +18,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0")
 
 addSbtPlugin("com.heroku" % "sbt-heroku" % "0.5.3.1")
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.5.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
