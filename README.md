@@ -19,23 +19,32 @@ $ open http://localhost:9000
 
 ## Features
 
-The application uses the [sbt-play-scalajs](https://github.com/vmunier/sbt-play-scalajs) sbt plugin and the [play-scalajs-scripts](https://github.com/vmunier/play-scalajs-scripts) library.
+The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-scalajs) sbt plugin and the [scalajs-scripts](https://github.com/vmunier/scalajs-scripts) library.
 
 - Run your application like a regular Play app
-  - `compile` simply triggers the Scala.js compilation
+  - `compile` triggers the Scala.js fastOptJS command
   - `run` triggers the Scala.js fastOptJS command on page refresh
   - `~compile`, `~run`, continuous compilation is also available
-  - `start`, `stage` and `dist` generate the optimised javascript
-  - [`playscalajs.html.scripts`](https://github.com/vmunier/play-with-scalajs-example/blob/c5fa9ce35954278bea903823a7f0528b1d68b5db/server/app/views/main.scala.html#L14) selects the optimised javascript file when the application runs in prod mode (`start`, `stage`, `dist`).
+- Compilation errors from the Scala.js projects are also displayed in the browser
+- Production archives (e.g. using `stage`, `dist`) contain the optimised javascript
 - Source maps
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown
   - Source Maps is _disabled in production_ by default to prevent your users from seeing the source files. But it can easily be enabled in production too by setting `emitSourceMaps in fullOptJS := true` in the Scala.js projects.
+
+## Cleaning
+
+The root project aggregates all the other projects by default.
+Use this root project, called `play-with-scalajs-example`, to clean all the projects at once.
+```shell
+$ sbt
+> play-with-scalajs-example/clean
+```
 
 ## IDE integration
 
 ### Eclipse
 
-1. `$ sbt sbt "eclipse with-source=true"`
+1. `$ sbt "eclipse with-source=true"`
 2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the second and the last checkboxes to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-with-scalajs-example.png?raw=true "eclipse play-with-scalajs-example screenshot")
 
 ### IntelliJ
@@ -53,3 +62,5 @@ Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known is
 3. `$ sbt stage deployHeroku`
 
 This example uses the [sbt-heroku](https://github.com/heroku/sbt-heroku) plugin to deploy to Heroku.
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)

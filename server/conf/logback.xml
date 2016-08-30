@@ -1,0 +1,21 @@
+<configuration>
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{ISO8601} %-16coloredLevel %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- silent error messages on Scala.js full-optimized files -->
+    <Logger name="com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter" level="off">
+      <AppenderRef ref="STDOUT" />
+    </Logger>
+
+    <logger name="application" level="DEBUG" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
