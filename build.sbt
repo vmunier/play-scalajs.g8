@@ -11,9 +11,6 @@ lazy val server = (project in file("server")).settings(
     "com.vmunier" %% "scalajs-scripts" % "1.0.0",
     specs2 % Test
   ),
-  // Heroku specific
-  herokuAppName in Compile := "your-heroku-app-name",
-  herokuSkipSubProjects in Compile := false,
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
   EclipseKeys.preTasks := Seq(compile in Compile)
 ).enablePlugins(PlayScala).
