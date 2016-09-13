@@ -1,0 +1,21 @@
+language: scala
+jdk: oraclejdk8
+
+scala:
+  - 2.11.8
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+  - find $HOME/.sbt        -name "*.lock"               -print -delete
+
+script:
+  - ci/checksourcemaps.sh
+
+notifications:
+  email:
+    on_success: never
