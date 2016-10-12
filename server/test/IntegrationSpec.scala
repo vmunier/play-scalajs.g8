@@ -1,6 +1,7 @@
 import org.junit.runner._
 import org.specs2.mutable._
 import org.specs2.runner._
+import play.api.test._
 
 /**
  * add your integration spec here.
@@ -10,7 +11,7 @@ import org.specs2.runner._
 class IntegrationSpec extends Specification {
 
   "Application" should {
-    "work from within a browser" in new WithDepsBrowser {
+    "work from within a browser" in new WithBrowser {
 
       browser.goTo("http://localhost:" + port)
 
