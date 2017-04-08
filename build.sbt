@@ -18,8 +18,7 @@ lazy val server = (project in file("server")).settings(
 
 lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
-  persistLauncher := true,
-  persistLauncher in Test := false,
+  scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
   )
