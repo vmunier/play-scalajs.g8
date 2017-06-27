@@ -5,5 +5,6 @@
 # Home page
 GET     /                           controllers.Application.index
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# Prefix must match `play.assets.urlPrefix`
+GET     /assets/*file           controllers.Assets.at(file)
+GET     /versionedAssets/*file  controllers.Assets.versioned(file)
