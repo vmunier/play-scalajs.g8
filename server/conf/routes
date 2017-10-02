@@ -7,4 +7,4 @@ GET     /                           controllers.Application.index
 
 # Prefix must match `play.assets.urlPrefix`
 GET     /assets/*file           controllers.Assets.at(file)
-GET     /versionedAssets/*file  controllers.Assets.versioned(file)
+GET     /versionedAssets/*file  controllers.Assets.versioned(path="/public", file: Asset)
