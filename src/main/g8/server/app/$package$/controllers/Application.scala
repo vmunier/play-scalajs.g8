@@ -1,9 +1,9 @@
-package controllers
+package $package$.controllers
 
 import javax.inject._
 
+import $package$.shared.SharedMessages
 import play.api.mvc._
-import shared.SharedMessages
 
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
