@@ -3,10 +3,9 @@ package example
 import org.scalajs.dom
 import shared.SharedMessages
 
-import scala.scalajs.js
+object ScalaJSExample {
 
-object ScalaJSExample extends js.JSApp {
-  def main(): Unit = {
+  def main(args: Array[String]): Unit = {
     dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
   }
 }
