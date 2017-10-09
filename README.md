@@ -54,4 +54,4 @@ Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known is
 ### Eclipse
 
 1. `$ sbt "eclipse with-source=true"`
-2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the last checkbox to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
+2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the third checkbox to only import client, server and shared/.jvm, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
