@@ -1,9 +1,10 @@
 #!/bin/sh
 
 baseDir="$( cd "$( dirname "$0" )"/.. && pwd )"
+g8TemplateOutput=$baseDir/target/g8
 
 countScalaFiles() {
-  archive="$baseDir/server/target/universal/server-0.1-SNAPSHOT.zip"
+  archive="$g8TemplateOutput/server/target/universal/server-0.1-SNAPSHOT.zip"
   unzip -o $archive
   nbScalaFiles=$(unzip -l "server-0.1-SNAPSHOT/lib/*server*.jar" | grep ".*\.scala$" | wc -l)
   return "$nbScalaFiles"
@@ -11,13 +12,18 @@ countScalaFiles() {
 
 cd $baseDir
 
+# Apply default parameters to input templates and write to target/g8.
+sbt clean g8
+
+cd $g8TemplateOutput
+
 # produce archive with no source maps
 sbt universal:packageBin
 countScalaFiles
 nbScalaFilesNoSourceMaps=$?
 
 # produce archive with source maps
-sbt universal:packageBin "set emitSourceMaps in (client, fullOptJS) := true" "set emitSourceMaps in (sharedJs, fullOptJS) := true" universal:packageBin
+sbt "set emitSourceMaps in (client, fullOptJS) := true" "set emitSourceMaps in (sharedJs, fullOptJS) := true" universal:packageBin
 countScalaFiles
 nbScalaFilesWithSourceMaps=$?
 

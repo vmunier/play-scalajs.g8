@@ -2,21 +2,23 @@
 
 [![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vmunier/play-with-scalajs-example?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-This is a simple example application showing how you can integrate a Play project with a Scala.js project.
+This is a [Giter8](http://www.foundweekends.org/giter8/) template showing how you can integrate a Play project with a Scala.js project.
+
+## Run the application
+
+```shell
+$ sbt new vmunier/play-with-scalajs-example --name=playscalajs --organization=com.example
+$ cd playscalajs
+$ sbt
+> run
+$ open http://localhost:9000
+```
 
 The application contains three directories:
 * `server` Play application (server side)
 * `client` Scala.js application (client side)
 * `shared` Scala code that you want to share between the server and the client
-
-## Run the application
-```shell
-$ sbt
-> run
-$ open http://localhost:9000
-```
 
 ## Features
 
@@ -35,10 +37,10 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
 ## Cleaning
 
 The root project aggregates all the other projects by default.
-Use this root project, called `play-with-scalajs-example`, to clean all the projects at once.
+Use this root project, called `playscalajs` by default, to clean all the projects at once.
 ```shell
 $ sbt
-> play-with-scalajs-example/clean
+> playscalajs/clean
 ```
 
 ## IDE integration

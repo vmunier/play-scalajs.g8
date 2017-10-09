@@ -1,7 +1,7 @@
-package example
+package $package$
 
+import $package$.shared.SharedMessages
 import org.scalajs.dom
-import shared.SharedMessages
 
 object ScalaJSExample {
 
