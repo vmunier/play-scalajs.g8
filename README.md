@@ -45,13 +45,13 @@ $ sbt
 
 ## IDE integration
 
-### Eclipse
-
-1. `$ sbt "eclipse with-source=true"`
-2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the second and the last checkboxes to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-with-scalajs-example.png?raw=true "eclipse play-with-scalajs-example screenshot")
-
 ### IntelliJ
 
 In IntelliJ, open Project wizard, select `Import Project`, choose the root folder and click `OK`.
 Select `Import project from external model` option, choose `SBT project` and click `Next`. Select additional import options and click `Finish`.
 Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known issues with prior versions of the plugin.
+
+### Eclipse
+
+1. `$ sbt "eclipse with-source=true"`
+2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the last checkbox to only import client, server and one shared, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
