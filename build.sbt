@@ -1,1 +1,1 @@
-name := "play-with-scalajs-example"
+name := "play-scalajs.g8"
