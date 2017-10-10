@@ -49,7 +49,7 @@ $ sbt
 
 In IntelliJ, open Project wizard, select `Import Project`, choose the root folder and click `OK`.
 Select `Import project from external model` option, choose `SBT project` and click `Next`. Select additional import options and click `Finish`.
-Make sure you use the IntelliJ Scala Plugin v1.3.3 or higher. There are known issues with prior versions of the plugin.
+Make sure you use the IntelliJ Scala Plugin v2017.2.7 or higher. There are known issues with prior versions of the plugin.
 
 ### Eclipse
 
