@@ -8,8 +8,8 @@ This is a [Giter8](http://www.foundweekends.org/giter8/) template showing how yo
 ## Run the application
 
 ```shell
-$ sbt new vmunier/play-scalajs.g8 --name=playscalajs --organization=com.example
-$ cd playscalajs
+$ sbt new vmunier/play-scalajs.g8 --name=play-scalajs --organization=com.example
+$ cd play-scalajs
 $ sbt
 > run
 $ open http://localhost:9000
@@ -37,10 +37,10 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
 ## Cleaning
 
 The root project aggregates all the other projects by default.
-Use this root project, called `playscalajs` by default, to clean all the projects at once.
+Use this root project, called `play-scalajs` by default, to clean all the projects at once.
 ```shell
 $ sbt
-> playscalajs/clean
+> play-scalajs/clean
 ```
 
 ## IDE integration
