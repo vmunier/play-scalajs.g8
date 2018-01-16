@@ -27,7 +27,7 @@ lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.2",
+  scalaVersion := "2.12.4",
   organization := "$organization$"
 )
 
