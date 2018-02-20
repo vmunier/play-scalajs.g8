@@ -4,9 +4,9 @@ baseDir="$( cd "$( dirname "$0" )"/.. && pwd )"
 g8TemplateOutput=$baseDir/target/g8
 
 countScalaFiles() {
-  archive="$g8TemplateOutput/server/target/universal/server-0.1-SNAPSHOT.zip"
+  archive="$g8TemplateOutput/server/target/universal/server-0.1.0-SNAPSHOT.zip"
   unzip -o $archive
-  nbScalaFiles=$(unzip -l "server-0.1-SNAPSHOT/lib/*server*.jar" | grep ".*\.scala$" | wc -l)
+  nbScalaFiles=$(unzip -l "server-0.1.0-SNAPSHOT/lib/*server*.jar" | grep ".*\.scala$" | wc -l)
   return "$nbScalaFiles"
 }
 
