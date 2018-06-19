@@ -8,7 +8,7 @@ This is a [Giter8](http://www.foundweekends.org/giter8/) template showing how yo
 ## Run the application
 
 ```shell
-$ sbt new vmunier/play-scalajs.g8 --name=play-scalajs
+$ sbt new vmunier/play-scalajs.g8
 $ cd play-scalajs
 $ sbt
 > run
