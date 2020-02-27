@@ -23,7 +23,7 @@ countScalaFiles
 nbScalaFilesNoSourceMaps=$?
 
 # produce archive with source maps
-sbt "set scalaJSLinkerConfig in (client, fullOptJS) ~= (_.withSourceMap(true))" "set scalaJSLinkerConfig in (sharedJs, fullOptJS) ~= (_.withSourceMap(true))" universal:packageBin
+sbt "set scalaJSLinkerConfig in (client, Compile, fullOptJS) ~= (_.withSourceMap(true))" "set scalaJSLinkerConfig in (sharedJs, Compile, fullOptJS) ~= (_.withSourceMap(true))" universal:packageBin
 countScalaFiles
 nbScalaFilesWithSourceMaps=$?
 
