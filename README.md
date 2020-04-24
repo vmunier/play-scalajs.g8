@@ -11,6 +11,7 @@ This is a [Giter8](http://www.foundweekends.org/giter8/) template showing how yo
 $ sbt new vmunier/play-scalajs.g8
 $ cd play-scalajs
 $ sbt
+> project server
 > run
 $ open http://localhost:9000
 ```
