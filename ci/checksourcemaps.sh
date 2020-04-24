@@ -17,6 +17,14 @@ sbt clean g8
 
 cd $g8TemplateOutput
 
+# run test
+sbt test
+testResult=$?
+if [ "$testResult" -ne 0 ]; then
+   echo >&2 "sbt test failed"
+   exit $testResult
+fi
+
 # produce archive with no source maps
 sbt universal:packageBin
 countScalaFiles
