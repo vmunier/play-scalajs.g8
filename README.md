@@ -37,11 +37,10 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
 
 ## Cleaning
 
-The root project aggregates all the other projects by default.
-Use this root project, called `play-scalajs` by default, to clean all the projects at once.
+The root project aggregates all the other projects by default. Use this root project to clean all the projects at once.
 ```shell
 $ sbt
-> play-scalajs/clean
+> clean
 ```
 
 ## IDE integration
