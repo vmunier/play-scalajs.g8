@@ -35,6 +35,13 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown
   - Source Maps is _disabled in production_ by default to prevent your users from seeing the source files. But it can easily be enabled in production too by setting `scalaJSLinkerConfig in (Compile, fullOptJS) ~= (_.withSourceMap(true))` in the Scala.js projects.
 
+## Load the server project at sbt startup
+
+Add the following line to `build.sbt` if you wish to load the server project at sbt startup:
+```scala
+onLoad in Global := (onLoad in Global).value.andThen(state => "project server" :: state)
+```
+
 ## Cleaning
 
 The root project aggregates all the other projects by default. Use this root project to clean all the projects at once.
