@@ -25,18 +25,18 @@ if [ "$testResult" -ne 0 ]; then
    exit $testResult
 fi
 
-# produce archive with no source maps
-sbt universal:packageBin
-countScalaFiles
-nbScalaFilesNoSourceMaps=$?
-
 # produce archive with source maps
-sbt "set scalaJSLinkerConfig in (client, Compile, fullOptJS) ~= (_.withSourceMap(true))" "set scalaJSLinkerConfig in (sharedJs, Compile, fullOptJS) ~= (_.withSourceMap(true))" universal:packageBin
+sbt "set scalaJSStage in Global := FullOptStage" universal:packageBin
 countScalaFiles
 nbScalaFilesWithSourceMaps=$?
 
-echo "-- RESULTS --"
-echo "Number of Scala files with source maps disabled: $nbScalaFilesNoSourceMaps (0 expected)"
-echo "Number of Scala files with source maps enabled: $nbScalaFilesWithSourceMaps (>0 expected)"
+# produce archive with no source maps
+sbt "set scalaJSStage in Global := FullOptStage" "set scalaJSLinkerConfig in (ThisBuild, Compile, fullOptJS) ~= (_.withSourceMap(false))" universal:packageBin
+countScalaFiles
+nbScalaFilesNoSourceMaps=$?
 
-[ "$nbScalaFilesNoSourceMaps" -eq "0" ] && [ "$nbScalaFilesWithSourceMaps" -gt "0" ]
+echo "-- RESULTS --"
+echo "Number of Scala files with source maps enabled: $nbScalaFilesWithSourceMaps (>0 expected)"
+echo "Number of Scala files with source maps disabled: $nbScalaFilesNoSourceMaps (0 expected)"
+
+[ "$nbScalaFilesWithSourceMaps" -gt "0" ] && [ "$nbScalaFilesNoSourceMaps" -eq "0" ]
