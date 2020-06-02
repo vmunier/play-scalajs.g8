@@ -26,14 +26,17 @@ The application contains three directories:
 The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-scalajs) sbt plugin and the [scalajs-scripts](https://github.com/vmunier/scalajs-scripts) library.
 
 - Run your application like a regular Play app
-  - `compile` triggers the Scala.js fastOptJS command
-  - `run` triggers the Scala.js fastOptJS command on page refresh
+  - `compile` triggers the Scala.js `fastOptJS` task
+  - `run` triggers the Scala.js `fastOptJS` task on page refresh
   - `~compile`, `~run`, continuous compilation is also available
 - Compilation errors from the Scala.js projects are also displayed in the browser
-- Production archives (e.g. using `stage`, `dist`) contain the optimised javascript
+- Set `scalaJSStage` to `FullOptStage` when packaging your application for `fullOptJS` to be executed instead of `fastOptJS`:
+  ```
+  sbt 'set scalaJSStage in Global := FullOptStage' dist
+  ```
 - Source maps
-  - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown
-  - Source Maps is _disabled in production_ by default to prevent your users from seeing the source files. But it can easily be enabled in production too by setting `scalaJSLinkerConfig in (Compile, fullOptJS) ~= (_.withSourceMap(true))` in the Scala.js projects.
+  - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown.
+  - Source Maps are enabled in both `fastOptJS` and `fullOptJS` by default. If you wish to disable Source Maps in `fullOptJS`, then add `scalaJSLinkerConfig in (Compile, fullOptJS) ~= (_.withSourceMap(false))` in the Scala.js projects.
 
 ## Load the server project at sbt startup
 
