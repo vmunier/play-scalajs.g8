@@ -63,5 +63,11 @@ Make sure you use the IntelliJ Scala Plugin v2017.2.7 or higher. There are known
 
 ### Eclipse
 
-1. `$ sbt "eclipse with-source=true"`
-2. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the third checkbox to only import client, server and shared/.jvm, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
+1. Add `addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.4")` to `project/plugins.sbt`
+2. Add the following lines to the `server`'s settings in `build.sbt`:
+```
+// Compile the project before generating Eclipse files, so that generated .scala or .class files for Twirl templates are present
+EclipseKeys.preTasks := Seq(compile in Compile)
+```
+3. Run `$ sbt "eclipse with-source=true"`
+4. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the third checkbox to only import client, server and shared/.jvm, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
