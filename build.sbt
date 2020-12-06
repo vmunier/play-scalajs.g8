@@ -1,7 +1,5 @@
 name := "play-scalajs.g8"
 
-resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
-
 enablePlugins(ScriptedPlugin)
 
 // add the below dependencies in the template build, so that Scala Steward can update versions in the giter8 template
