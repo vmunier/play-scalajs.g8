@@ -1,3 +1,6 @@
+lazy val root = (project in file("."))
+  .aggregate(server, client, sharedJvm, sharedJs)
+
 lazy val server = (project in file("server"))
   .settings(commonSettings)
   .settings(
