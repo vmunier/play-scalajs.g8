@@ -11,8 +11,8 @@ This is a [Giter8](http://www.foundweekends.org/giter8/) template showing how yo
 $ sbt new vmunier/play-scalajs.g8
 $ cd play-scalajs
 $ sbt
-> project server
-> run
+sbt:root> project server
+[server] run
 $ open http://localhost:9000
 ```
 
@@ -38,20 +38,23 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown.
   - Source Maps are enabled in both `fastOptJS` and `fullOptJS` by default. If you wish to disable Source Maps in `fullOptJS`, then add `scalaJSLinkerConfig in (Compile, fullOptJS) ~= (_.withSourceMap(false))` in the Scala.js projects.
 
+## Cleaning
+
+The `root` project aggregates all the other projects. Use this root project to clean all the projects at once.
+```shell
+$ sbt
+sbt:root> clean
+```
+
 ## Load the server project at sbt startup
 
 Add the following line to `build.sbt` if you wish to load the server project at sbt startup:
 ```scala
-onLoad in Global := (onLoad in Global).value.andThen(state => "project server" :: state)
+Global / onLoad := (Global / onLoad).value.andThen(state => "project server" :: state)
 ```
 
-## Cleaning
+`clean` will only delete the server's generated files (in the `server/target` directory). Call `root/clean` to delete the generated files for all the projects.
 
-The root project aggregates all the other projects by default. Use this root project to clean all the projects at once.
-```shell
-$ sbt
-> clean
-```
 
 ## IDE integration
 
