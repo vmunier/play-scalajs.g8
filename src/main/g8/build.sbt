@@ -1,8 +1,11 @@
+ThisBuild / organization := "$organization$"
+ThisBuild / scalaVersion := "2.13.5"
+ThisBuild / version      := "0.1.0-SNAPSHOT"
+
 lazy val root = (project in file("."))
   .aggregate(server, client, sharedJvm, sharedJs)
 
 lazy val server = (project in file("server"))
-  .settings(commonSettings)
   .settings(
     scalaJSProjects := Seq(client),
     Assets / pipelineStages  := Seq(scalaJSPipeline),
@@ -19,7 +22,6 @@ lazy val server = (project in file("server"))
   .dependsOn(sharedJvm)
 
 lazy val client = (project in file("client"))
-  .settings(commonSettings)
   .settings(
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
@@ -32,12 +34,6 @@ lazy val client = (project in file("client"))
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("shared"))
-  .settings(commonSettings)
   .jsConfigure(_.enablePlugins(ScalaJSWeb))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
-
-lazy val commonSettings = Seq(
-  scalaVersion := "2.13.1",
-  organization := "$organization$"
-)
