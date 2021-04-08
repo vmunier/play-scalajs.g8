@@ -32,11 +32,11 @@ The application uses the [sbt-web-scalajs](https://github.com/vmunier/sbt-web-sc
 - Compilation errors from the Scala.js projects are also displayed in the browser
 - Set `scalaJSStage` to `FullOptStage` when packaging your application for `fullOptJS` to be executed instead of `fastOptJS`:
   ```
-  sbt 'set scalaJSStage in Global := FullOptStage' dist
+  sbt 'set Global / scalaJSStage := FullOptStage' dist
   ```
 - Source maps
   - Open your browser dev tool to set breakpoints or to see the guilty line of code when an exception is thrown.
-  - Source Maps are enabled in both `fastOptJS` and `fullOptJS` by default. If you wish to disable Source Maps in `fullOptJS`, then add `scalaJSLinkerConfig in (Compile, fullOptJS) ~= (_.withSourceMap(false))` in the Scala.js projects.
+  - Source Maps are enabled in both `fastOptJS` and `fullOptJS` by default. If you wish to disable Source Maps in `fullOptJS`, then add `Compile / fullOptJS / scalaJSLinkerConfig ~= (_.withSourceMap(false))` in the Scala.js projects.
 
 ## Cleaning
 
@@ -70,7 +70,7 @@ Make sure you use the IntelliJ Scala Plugin v2017.2.7 or higher. There are known
 2. Add the following lines to the `server`'s settings in `build.sbt`:
 ```
 // Compile the project before generating Eclipse files, so that generated .scala or .class files for Twirl templates are present
-EclipseKeys.preTasks := Seq(compile in Compile)
+EclipseKeys.preTasks := Seq(Compile / compile)
 ```
 3. Run `$ sbt "eclipse with-source=true"`
 4. Inside Eclipse, `File/Import/General/Existing project...`, choose the root folder. Uncheck the third checkbox to only import client, server and shared/.jvm, click `Finish`. ![Alt text](screenshots/eclipse-play-scalajs.png?raw=true "eclipse play-scalajs screenshot")
