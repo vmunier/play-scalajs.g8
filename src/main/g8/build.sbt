@@ -1,14 +1,17 @@
+ThisBuild / organization := "$organization$"
+ThisBuild / scalaVersion := "2.13.4"
+ThisBuild / version      := "0.1.0-SNAPSHOT"
+
 lazy val root = (project in file("."))
   .aggregate(server, client, sharedJvm, sharedJs)
 
 lazy val server = (project in file("server"))
-  .settings(commonSettings)
   .settings(
     scalaJSProjects := Seq(client),
-    pipelineStages in Assets := Seq(scalaJSPipeline),
+    Assets / pipelineStages  := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
     // triggers scalaJSPipeline when using compile or continuous compilation
-    compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
+    Compile / compile := ((Compile / compile) dependsOn scalaJSPipeline).value,
     libraryDependencies ++= Seq(
       "com.vmunier" %% "scalajs-scripts" % "1.1.4",
       guice,
@@ -19,7 +22,6 @@ lazy val server = (project in file("server"))
   .dependsOn(sharedJvm)
 
 lazy val client = (project in file("client"))
-  .settings(commonSettings)
   .settings(
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
@@ -32,12 +34,6 @@ lazy val client = (project in file("client"))
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("shared"))
-  .settings(commonSettings)
   .jsConfigure(_.enablePlugins(ScalaJSWeb))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
-
-lazy val commonSettings = Seq(
-  scalaVersion := "2.13.1",
-  organization := "$organization$"
-)
