@@ -26,12 +26,12 @@ if [ "$testResult" -ne 0 ]; then
 fi
 
 # produce archive with source maps
-sbt "set scalaJSStage in Global := FullOptStage" universal:packageBin
+sbt "set Global / scalaJSStage := FullOptStage" universal:packageBin
 countScalaFiles
 nbScalaFilesWithSourceMaps=$?
 
 # produce archive with no source maps
-sbt "set scalaJSStage in Global := FullOptStage" "set scalaJSLinkerConfig in (ThisBuild, Compile, fullOptJS) ~= (_.withSourceMap(false))" universal:packageBin
+sbt "set Global / scalaJSStage := FullOptStage" "set ThisBuild / Compile / fullOptJS / scalaJSLinkerConfig ~= (_.withSourceMap(false))" universal:packageBin
 countScalaFiles
 nbScalaFilesNoSourceMaps=$?
 
