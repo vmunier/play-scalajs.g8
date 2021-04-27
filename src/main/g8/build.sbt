@@ -12,7 +12,6 @@ lazy val server = project
     pipelineStages := Seq(digest, gzip),
     // triggers scalaJSPipeline when using compile or continuous compilation
     Compile / compile := ((Compile / compile) dependsOn scalaJSPipeline).value,
-    libraryDependencies += "com.vmunier" %% "scalajs-scripts" % "1.1.4",
     libraryDependencies += guice
   )
   .enablePlugins(PlayScala)
