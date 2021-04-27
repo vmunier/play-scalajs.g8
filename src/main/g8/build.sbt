@@ -3,9 +3,9 @@ ThisBuild / scalaVersion := "2.13.5"
 ThisBuild / version      := "0.1.0-SNAPSHOT"
 
 lazy val root = (project in file("."))
-  .aggregate(server, client, sharedJvm, sharedJs)
+  .aggregate(server, client, shared.jvm, shared.js)
 
-lazy val server = (project in file("server"))
+lazy val server = project
   .settings(
     scalaJSProjects := Seq(client),
     Assets / pipelineStages  := Seq(scalaJSPipeline),
@@ -19,21 +19,17 @@ lazy val server = (project in file("server"))
     )
   )
   .enablePlugins(PlayScala)
-  .dependsOn(sharedJvm)
+  .dependsOn(shared.jvm)
 
-lazy val client = (project in file("client"))
+lazy val client = project
   .settings(
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "1.1.0"
-    )
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0"
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
-  .dependsOn(sharedJs)
+  .dependsOn(shared.js)
 
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("shared"))
   .jsConfigure(_.enablePlugins(ScalaJSWeb))
-lazy val sharedJvm = shared.jvm
-lazy val sharedJs = shared.js
