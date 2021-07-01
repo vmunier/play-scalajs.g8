@@ -1,5 +1,0 @@
-@(scripts: String*)
-
-@scripts.find(name => getClass.getResource(s"/public/$name") != null).map { asset =>
-  <script src=@routes.Assets.versioned(asset) type="text/javascript"></script>
-}
