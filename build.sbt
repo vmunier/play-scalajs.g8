@@ -4,5 +4,5 @@ enablePlugins(ScriptedPlugin)
 
 // add the below dependencies in the template build, so that Scala Steward can update versions in the giter8 template
 libraryDependencies ++= Seq(
-  "org.scala-js" %%% "scalajs-dom" % "2.6.0"
+  "org.scala-js" %%% "scalajs-dom" % "2.8.0"
 )
