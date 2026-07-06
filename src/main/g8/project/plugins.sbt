@@ -3,7 +3,7 @@ ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" 
 // Comment to get more information during initialization
 logLevel := Level.Warn
 
-addSbtPlugin("com.vmunier"               % "sbt-web-scalajs"           % "1.3.0")
+addSbtPlugin("com.vmunier"               % "sbt-web-scalajs"           % "1.4.0")
 addSbtPlugin("org.scala-js"              % "sbt-scalajs"               % "1.19.0")
 addSbtPlugin("org.playframework"         % "sbt-plugin"                % "3.0.7")
 addSbtPlugin("org.portable-scala"        % "sbt-scalajs-crossproject"  % "1.3.2")
